@@ -10,6 +10,7 @@ read -p "Enter username of samba user: " SMBUSER
 sudo apt install samba -y
 echo "- Installed samba version: $(samba --version)"
 
+echo "- Creating ~/smb_share directory" && sudo mkdir /home/${SMBUSER}/smb_share
 sudo tee -a /etc/samba/smb.conf <<EOF
 [${SMBUSER}]
 	path = /home/${SMBUSER}/smb_share
