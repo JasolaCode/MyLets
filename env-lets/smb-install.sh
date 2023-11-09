@@ -12,7 +12,7 @@ echo "- Installed samba version: $(samba --version)"
 
 sudo tee -a /etc/samba/smb.conf <<EOF
 [${SMBUSER}]
-	path = /home/${SMBUSER}
+	path = /home/${SMBUSER}/smb_share
 	browseable = yes
 	read only = no
 EOF
