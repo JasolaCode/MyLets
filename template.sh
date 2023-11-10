@@ -40,7 +40,8 @@ if (( $EUID != 0 )); then # check is script has been run as sudo
 fi # end of $EUID if
 
 if [ $# -eq 0 ]; then # if no params are parsed through, display the -h|--help menu using the usage() function
-	usage; exit 0 # exit without error
+	echo "$0: no parameter parsed"
+  	usage; exit 0 # exit without error
 fi # end of $# if
 
 while [[ $# -gt 0 ]]; do # while loop is used to assign paramaters parsed through in command line
@@ -66,7 +67,8 @@ while [[ $# -gt 0 ]]; do # while loop is used to assign paramaters parsed throug
 			shift
 			;;
 		*) # I clearly don't know how to use it... Help me out by showing the usage() function
-			usage # calls function usage() to be run
+			echo "$0: incorrect parameter parsed"
+		  	usage # calls function usage() to be run
 			shift
 			;;
 	esac # end of $1 case

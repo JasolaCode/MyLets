@@ -25,7 +25,7 @@ function install {
 
 	echo "- Creating ~/smb_share directory" && sudo mkdir $SMBDIR
 	sudo tee -a /etc/samba/smb.conf <<EOF
-[${SMBUSER}]
+[smb_share]
 	path = /home/${SMBUSER}/smb_share
 	browseable = yes
 	read only = no
