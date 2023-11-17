@@ -1,13 +1,22 @@
 #!/bin/bash
-#
-#template_script.sh
+
+# set colour variables to use in the file
+BLK='\033[01;30m'   # Black
+RED='\033[01;31m'   # Red
+GRN='\033[01;32m'   # Green
+YLW='\033[01;33m'   # Yellow
+BLU='\033[01;34m'   # Blue
+PUR='\033[01;35m'   # Purple
+CYN='\033[01;36m'   # Cyan
+WHT='\033[01;37m'   # White
+CLR='\033[00m'      # Reset
 
 function usage { # example of a --help parameter which is parsed through to display information
 	echo "" # $0 is a default variable used for the filename of script
 	echo "Usage: $0 [-s|--stringlength] [-u|--uppercase] [-l|--lowercase] [-n|--nonums] [-h|--help]" # an understandable layout to display paramaters for script
 	echo "Generate a string of minimum length 12, optionally change what can be generated in string."
 	echo ""
-	echo "Options:" # thi area shows how to parse parameters into the script as intended with brief definitions
+	echo "Options:" # this area shows how to parse parameters into the script as intended with brief definitions
 	echo "  -s, --stringlength      Using an int, define the length of the string.There is no default value."
 	echo "  -u, --uppercase         Define parameter to exclude uppercase alphabet characters from string."
 	echo "  -l, --lowercase         Define paramter to exclude lowercase alphabet characters from string."
@@ -47,9 +56,12 @@ fi # end of $# if
 while [[ $# -gt 0 ]]; do # while loop is used to assign paramaters parsed through in command line
 	case $1 in # $1 represents a parsed in variable
 		-s|--stringlength) # for parameters which accept a value, we use two 'shift'/s
+			# the below is an example of an if statement expressed as a one line... This way of it seems a bit finnicky but it works in some situations
+			[ $# -lt 6 ] && { echo "Usage: $0 [STRINGLENGTH] [OPTIONAL_STRING]"; } # print guidance if not all values are parsed with -s|--stringlength
 			STRINGLENGTH="$2" # assigns the value parsed with -s to variable
-			shift
-			shift;;
+			[ -n "$3" ] && { OPTIONAL_STRING="$3" } # assign 2nd value to variable, only when parsed
+			for $s in $#; do shift; done # Shift for each value present
+			;;
 		-u|--uppercase) # for parameters that don't require a value, only one 'shift' is required
 			UPPERCASE=true # sets variable UPPERCASE to true
 			shift
@@ -94,3 +106,4 @@ echo "[-s|--stringlength] = $STRINGLENGTH"
 echo "[-u|--uppercase] = $UPPERCASE"
 echo "[-l|--lowercase] = $LOWERCASE"
 echo "[-n|--nonums] = $NONUMS"
+if [ ! -z ${NONUMS+x} ]; then echo "  HIDDEN LINE, ONLY SHOWS WHEN NONUMS IS DECLARED"; fi # will only print when variable is assigned a value
